@@ -9,7 +9,7 @@ var isValid = require('is-valid-app');
 var through = require('through2');
 var File = require('vinyl');
 
-module.exports = function(app) {
+export default function (app) {
   if (!isValid(app, 'verbfile')) return;
   app.use(require('verb-generate-readme'));
   app.on('error', console.log);
@@ -20,7 +20,7 @@ module.exports = function(app) {
 
   app.helpers(require('template-helpers')());
   customDocsHelpers(app);
-  app.helper('yaml', function(str) {
+  app.helper('yaml', function (str) {
     return yaml.safeLoad(str);
   });
 
@@ -28,7 +28,7 @@ module.exports = function(app) {
    * Tasks
    */
 
-  app.task('data', function(cb) {
+  app.task('data', function (cb) {
     app.data({
       before: {
         license: 'When this project was created some helpers were sourced from [Swag, by Elving Rodriguez](http://elving.github.com/swag/).'
@@ -51,21 +51,21 @@ module.exports = function(app) {
     cb();
   });
 
-  app.task('toc', function(cb) {
+  app.task('toc', function (cb) {
     return app.src('lib/*.js')
       .pipe(toc(app));
   });
 
-  app.task('docs', function(cb) {
+  app.task('docs', function (cb) {
     return app.src('README.md')
-      .pipe(through.obj(function(file, enc, next) {
+      .pipe(through.obj(function (file, enc, next) {
         file.content = file.content.replace(/^(#{2,}\s*)\[\.([^\]]+)\]/gm, '$1[{{$2}}]');
         next(null, file);
       }))
       .pipe(app.dest('.'));
   });
 
-  app.preRender(/\.md$/, function(file, next) {
+  app.preRender(/\.md$/, function (file, next) {
     file.options.stripEmpty = false;
     next();
   });
@@ -78,7 +78,7 @@ function toc(app, options) {
   var total = { categories: 0, helpers: 0 };
   var methods = {};
 
-  return through.obj(function(file, enc, next) {
+  return through.obj(function (file, enc, next) {
     if (typeof file.stem === 'undefined') {
       file = new File(file);
     }
@@ -135,18 +135,18 @@ function toc(app, options) {
     } catch (err) {
       next(err);
     }
-  }, function(next) {
-    app.data({total: total});
-    app.data({methods: methods});
+  }, function (next) {
+    app.data({ total: total });
+    app.data({ methods: methods });
     next();
   });
 }
 
 function matchTest(fp) {
-  if (!fp || !exists(fp)) return function() {};
+  if (!fp || !exists(fp)) return function () { };
   var str = fs.readFileSync(fp, 'utf8');
   var lines = str.split('\n');
-  return function(method) {
+  return function (method) {
     var re = new RegExp('\\s*(describe|it)\\([\'"]\\.?(' + method + ')');
     var len = lines.length, i = -1;
     while (++i < len) {
@@ -160,10 +160,10 @@ function matchTest(fp) {
 }
 
 function matchCode(fp) {
-  if (!fp || !exists(fp)) return function() {};
+  if (!fp || !exists(fp)) return function () { };
   var str = fs.readFileSync(fp, 'utf8');
   var lines = str.split('\n');
-  return function(method) {
+  return function (method) {
     var re = new RegExp('^helpers\\.(' + method + ')', 'gm');
     var len = lines.length, i = -1;
     while (++i < len) {
@@ -177,35 +177,35 @@ function matchCode(fp) {
 }
 
 function customDocsHelpers(app) {
-  app.helper('bullet', function(file) {
+  app.helper('bullet', function (file) {
     return '- **' + link(file.stem, '#' + file.stem) + '**';
   });
 
-  app.helper('issue', function(name) {
+  app.helper('issue', function (name) {
     var repo = app.cache.data.repository;
     return '[create issue](https://github.com/' + repo + '/issues/new?title=' + name + '%20helper)';
   });
 
-  app.helper('sectionIssue', function(section) {
+  app.helper('sectionIssue', function (section) {
     var repo = app.cache.data.repository;
     var url = 'https://github.com/' + repo + '/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+';
     return '[issues](' + url + section + '+helpers)';
   });
 
-  app.helper('anchor', function(file) {
+  app.helper('anchor', function (file) {
     return link(file.stem, '#' + file.stem);
   });
 
-  app.helper('codeLink', function(file) {
+  app.helper('codeLink', function (file) {
     return codeLink('code', file.code.path, file.code.line);
   });
 
-  app.helper('testLink', function(file) {
+  app.helper('testLink', function (file) {
     var line = file.test.line;
     return line ? codeLink('tests', file.test.path, line) : '[no tests]';
   });
 
-  app.helper('link', function(name, filepath) {
+  app.helper('link', function (name, filepath) {
     return link(name, filepath);
   });
 }

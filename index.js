@@ -13,7 +13,7 @@ var lib = require('./lib/');
  * Expose helpers
  */
 
-module.exports = function helpers(groups, options) {
+export default function helpers(groups, options) {
   if (typeof groups === 'string') {
     groups = [groups];
   } else if (!Array.isArray(groups)) {
@@ -26,7 +26,7 @@ module.exports = function helpers(groups, options) {
   module.exports.handlebars = hbs;
 
   if (groups) {
-    groups.forEach(function(key) {
+    groups.forEach(function (key) {
       hbs.registerHelper(lib[key]);
     });
   } else {
@@ -45,7 +45,7 @@ module.exports = function helpers(groups, options) {
 for (const key in lib) {
   const group = lib[key];
 
-  module.exports[key] = function(options) {
+  module.exports[key] = function (options) {
     options = options || {};
     var hbs = options.handlebars || options.hbs || require('handlebars');
     module.exports.handlebars = hbs;
