@@ -7,7 +7,7 @@
 
 'use strict';
 
-var lib = require('./lib/');
+import * as lib from './lib/';
 
 /**
  * Expose helpers
