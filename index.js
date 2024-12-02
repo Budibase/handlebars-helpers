@@ -7,13 +7,13 @@
 
 'use strict';
 
-var lib = require('./lib/');
+import lib from './lib/';
 
 /**
  * Expose helpers
  */
 
-module.exports = function helpers(groups, options) {
+export default function helpers(groups, options) {
   if (typeof groups === 'string') {
     groups = [groups];
   } else if (!Array.isArray(groups)) {
@@ -54,8 +54,4 @@ for (const key in lib) {
   };
 }
 
-/**
- * Expose `utils`
- */
-
-module.exports.utils = require('./lib/utils');
+export const utils = require('./lib/utils');
