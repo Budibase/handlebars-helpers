@@ -1,32 +1,37 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var assert = require('assert');
-var hbs = require('handlebars').create();
-var helpers = require('..');
+import { readdirSync } from 'fs';
+import assert, { equal } from 'assert';
+import handlebars from 'handlebars'
+const hbs = handlebars.create();
+import helpers from '../index.js';
 helpers.match({handlebars: hbs});
 
-var testFiles = fs.readdirSync(__dirname);
-var rootFiles = fs.readdirSync(path.join(__dirname, '..'));
+import { fileURLToPath } from 'url';
+import path from 'path';
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+var testFiles = readdirSync(__dirname);
+var rootFiles = readdirSync(path.join(__dirname, '..'));
 
 describe('matching', function() {
   describe('match', function() {
     it('should use the main micromatch function to filter an array', function() {
       var fn = hbs.compile('{{match files "(a|u)*.(mjs|js)"}}');
-      assert.equal(fn({files: testFiles}), 'array.js,url.js,utils.js,uuid.mjs');
+      equal(fn({files: testFiles}), 'array.mjs,url.js,utils.js,uuid.mjs');
     });
 
     it('should take an array of patterns', function() {
       var ctx = {files: testFiles, patterns: ['(a|u)*.(mjs|js)', 'f*.js']};
       var fn = hbs.compile('{{match files patterns}}');
-      assert.equal(fn(ctx), 'array.js,url.js,utils.js,uuid.mjs');
+      equal(fn(ctx), 'array.mjs,url.js,utils.js,uuid.mjs');
     });
 
     it('should take options from the "options[helper name]" object', function() {
       var ctx = {files: testFiles, options: {match: {dot: true}}};
       var fn = hbs.compile('{{match files "*"}}');
-      assert(/array\.js/.test(fn(ctx)));
+      assert(/array\.mjs/.test(fn(ctx)));
     });
 
     it('should take options from the hash', function() {
@@ -37,7 +42,7 @@ describe('matching', function() {
 
     it('should use return matching items', function() {
       var fn = hbs.compile('{{match files "(a|u)*.(mjs|js)"}}');
-      assert.equal(fn({files: testFiles}), 'array.js,url.js,utils.js,uuid.mjs');
+      equal(fn({files: testFiles}), 'array.mjs,url.js,utils.js,uuid.mjs');
     });
 
     it('should take options from the "options[helper name]" object', function() {
@@ -60,8 +65,8 @@ describe('matching', function() {
 
   describe('isMatch', function() {
     it('should return true if the given value matches the glob', function() {
-      assert.equal(hbs.compile('{{isMatch "foo.js" "*.js"}}')(), 'true');
-      assert.equal(hbs.compile('{{isMatch "foo.js" "*.json"}}')(), 'false');
+      equal(hbs.compile('{{isMatch "foo.js" "*.js"}}')(), 'true');
+      equal(hbs.compile('{{isMatch "foo.js" "*.json"}}')(), 'false');
     });
   });
 });
