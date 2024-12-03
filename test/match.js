@@ -13,14 +13,14 @@ var rootFiles = fs.readdirSync(path.join(__dirname, '..'));
 describe('matching', function() {
   describe('match', function() {
     it('should use the main micromatch function to filter an array', function() {
-      var fn = hbs.compile('{{match files "(a|u)*.js"}}');
-      assert.equal(fn({files: testFiles}), 'array.js,url.js,utils.js,uuid.js');
+      var fn = hbs.compile('{{match files "(a|u)*.(mjs|js)"}}');
+      assert.equal(fn({files: testFiles}), 'array.js,url.js,utils.js,uuid.mjs');
     });
 
     it('should take an array of patterns', function() {
-      var ctx = {files: testFiles, patterns: ['(a|u)*.js', 'f*.js']};
+      var ctx = {files: testFiles, patterns: ['(a|u)*.(mjs|js)', 'f*.js']};
       var fn = hbs.compile('{{match files patterns}}');
-      assert.equal(fn(ctx), 'array.js,url.js,utils.js,uuid.js');
+      assert.equal(fn(ctx), 'array.js,url.js,utils.js,uuid.mjs');
     });
 
     it('should take options from the "options[helper name]" object', function() {
@@ -36,8 +36,8 @@ describe('matching', function() {
     });
 
     it('should use return matching items', function() {
-      var fn = hbs.compile('{{match files "(a|u)*.js"}}');
-      assert.equal(fn({files: testFiles}), 'array.js,url.js,utils.js,uuid.js');
+      var fn = hbs.compile('{{match files "(a|u)*.(mjs|js)"}}');
+      assert.equal(fn({files: testFiles}), 'array.js,url.js,utils.js,uuid.mjs');
     });
 
     it('should take options from the "options[helper name]" object', function() {
