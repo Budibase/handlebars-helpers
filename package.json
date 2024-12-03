@@ -89,7 +89,7 @@
   },
   "devDependencies": {
     "engine-handlebars": "^0.8.2",
-    "eslint": "^7.26.0",
+    "eslint": "^8.57.0",
     "fs-exists-sync": "^0.1.0",
     "global-modules": "^2.0.0",
     "gulp": "^4.0.2",

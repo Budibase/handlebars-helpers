@@ -2,18 +2,13 @@
 
 import { readdirSync } from 'fs';
 import assert, { equal } from 'assert';
-import handlebars from 'handlebars'
+import handlebars from 'handlebars';
 const hbs = handlebars.create();
 import helpers from '../index.js';
 helpers.match({handlebars: hbs});
 
-import { fileURLToPath } from 'url';
-import path from 'path';
-const __filename = fileURLToPath(import.meta.url);
-
-const __dirname = path.dirname(__filename);
-var testFiles = readdirSync(__dirname);
-var rootFiles = readdirSync(path.join(__dirname, '..'));
+var testFiles = readdirSync('./test');
+var rootFiles = readdirSync('.');
 
 describe('matching', function() {
   describe('match', function() {
