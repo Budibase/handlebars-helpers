@@ -3,17 +3,11 @@
 
 import 'mocha';
 
-import { restore, stub } from 'sinon';
-import {uuid} from '../../lib/uuid.mjs';
-import math from '../../lib/math.js';
-
-restore();
-stub({uuid}, 'uuid').returns('f34ebc66-93bd-4f7c-b79b-92b5569138bc');
-stub(math, 'random').returns(10);
-
 import { equal } from 'assert';
 import lib from '../../lib/index.mjs';
+import * as math from '../../lib/math.mjs';
 lib.uuid = () => 'f34ebc66-93bd-4f7c-b79b-92b5569138bc';
+lib.math = () => ({...math, random: () => 10});
 
 import { readFileSync, existsSync } from 'fs';
 import { parse } from 'doctrine';

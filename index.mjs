@@ -44,10 +44,11 @@ export default function helpers(groups, options) {
  * Expose helper groups
  */
 function exportGroup(group) {
+  group = {...group};
   return function(options) {
     options = options || {};
     var hbs = options.handlebars || options.hbs || Handlebars;
-    hbs.registerHelper({...group});
+    hbs.registerHelper(group);
     return group;
   }; 
 };
