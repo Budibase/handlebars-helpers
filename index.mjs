@@ -28,12 +28,12 @@ export default function helpers(groups, options) {
 
   if (groups) {
     groups.forEach(function(key) {
-      hbs.registerHelper(lib[key]);
+      hbs.registerHelper({...lib[key]});
     });
   } else {
     for (const key in lib) {
       const group = lib[key];
-      hbs.registerHelper(group);
+      hbs.registerHelper({...group});
     }
   }
 
@@ -47,7 +47,7 @@ function exportGroup(group) {
   return function(options) {
     options = options || {};
     var hbs = options.handlebars || options.hbs || Handlebars;
-    hbs.registerHelper(group);
+    hbs.registerHelper({...group});
     return group;
   }; 
 };

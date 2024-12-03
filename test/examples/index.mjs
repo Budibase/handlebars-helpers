@@ -13,6 +13,7 @@ stub(math, 'random').returns(10);
 
 import { equal } from 'assert';
 import lib from '../../lib/index.mjs';
+lib.uuid = () => 'f34ebc66-93bd-4f7c-b79b-92b5569138bc';
 
 import { readFileSync, existsSync } from 'fs';
 import { parse } from 'doctrine';

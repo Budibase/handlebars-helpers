@@ -390,7 +390,7 @@ describe('array', function() {
 
     it('should sort based on object key:', function() {
       var ctx = {arr: [{a: 'zzz'}, {a: 'aaa'}]};
-      hbs.registerHelper(object());
+      object({handlebars: hbs});
       var fn = hbs.compile('{{{stringify (sortBy arr "a") 0}}}');
       equal(fn(ctx), '[{"a":"aaa"},{"a":"zzz"}]');
     });
