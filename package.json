@@ -64,7 +64,7 @@
     "index.js",
     "lib"
   ],
-  "main": "index.js",
+  "main": "index.mjs",
   "engines": {
     "node": ">=10.12.0"
   },

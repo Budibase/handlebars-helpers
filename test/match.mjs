@@ -4,7 +4,7 @@ import { readdirSync } from 'fs';
 import assert, { equal } from 'assert';
 import handlebars from 'handlebars';
 const hbs = handlebars.create();
-import helpers from '../index.js';
+import * as helpers from '../index.mjs';
 helpers.match({handlebars: hbs});
 
 var testFiles = readdirSync('./test');

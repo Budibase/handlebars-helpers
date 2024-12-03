@@ -1,22 +1,26 @@
 
 'use strict';
 
-require('mocha');
+import 'mocha';
 
-const sinon = require('sinon');
-sinon.stub(require('../../lib/uuid'), 'uuid').returns('f34ebc66-93bd-4f7c-b79b-92b5569138bc');
+import { restore, stub } from 'sinon';
+import uuid from '../../lib/uuid.js';
+import math from '../../lib/math.js';
+restore();
+stub(uuid, 'uuid').returns('f34ebc66-93bd-4f7c-b79b-92b5569138bc');
 
-sinon.stub(require('../../lib/math'), 'random').returns(10);
+stub(math, 'random').returns(10);
 
-var assert = require('assert');
-var lib = require('../../lib/');
+import { equal } from 'assert';
+import lib from '../../lib/index.js';
 
-const fs = require('fs');
-const doctrine = require('doctrine');
-const path = require('path');
+import { readFileSync } from 'fs';
+import { parse } from 'doctrine';
+import { join } from 'path';
 
-var handlebars = require('handlebars').create();
-var helpers = require('../..');
+import hbs from 'handlebars';
+const handlebars = hbs.create();
+import * as helpers from '../../index.mjs';
 
 function lookForward(lines, funcLines, idx) {
   const funcLen = funcLines.length;
@@ -55,7 +59,7 @@ function getCommentInfo(file, func) {
   if (comment == null) {
     return { description: '' };
   }
-  const docs = doctrine.parse(comment, { unwrap: true });
+  const docs = parse(comment, { unwrap: true });
   // some hacky fixes
   docs.description = docs.description.replace(/\n/g, ' ');
   docs.description = docs.description.replace(/[ ]{2,}/g, ' ');
@@ -85,7 +89,7 @@ describe('examples', function() {
 
     const group = lib[key];
 
-    const fileContent = fs.readFileSync(require.resolve(path.join('../../lib/', key)), 'utf8');
+    const fileContent = readFileSync(join('./lib/', `${key}.js`), 'utf8');
 
     describe(key, function() {
       for (const func in group) {
@@ -124,7 +128,7 @@ describe('examples', function() {
             // Nothing to parse
           }
           result = result.replace(/&amp;nbsp;/g, ' ');
-          assert.equal(result, expectedResult);
+          equal(result, expectedResult);
         });
       }
     });
