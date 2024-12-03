@@ -27,7 +27,6 @@ export default function helpers(groups, options) {
 
   options = options || {};
   var hbs = options.handlebars || options.hbs || require('handlebars');
-  module.exports.handlebars = hbs;
 
   if (groups) {
     groups.forEach(function(key) {

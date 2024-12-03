@@ -3,19 +3,13 @@
 var fs = require('fs');
 
 /**
- * Expose `utils`
- */
-
-var utils = module.exports;
-
-/**
  * Read a file at the given `filepath`
  *
  * @param {String} `fp`
  * @return {String}
  */
 
-utils.read = function(fp) {
+module.exports.read = function(fp) {
   return fs.readFileSync(fp, 'utf8');
 };
 
@@ -28,9 +22,9 @@ utils.read = function(fp) {
  * @return {String}
  */
 
-utils.fixture = function(type) {
+module.exports.fixture = function(type) {
   return function(fp) {
-    return utils.read('test/fixtures/' + type + '/' + fp);
+    return module.exports.read('test/fixtures/' + type + '/' + fp);
   };
 };
 
@@ -43,8 +37,8 @@ utils.fixture = function(type) {
  * @return {String}
  */
 
-utils.expected = function(type) {
+module.exports.expected = function(type) {
   return function(fp) {
-    return utils.read('test/expected/' + type + '/' + fp);
+    return module.exports.read('test/expected/' + type + '/' + fp);
   };
 };
