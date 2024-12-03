@@ -4,7 +4,7 @@ import 'mocha';
 import { homedir } from 'os';
 import { equal } from 'assert';
 import { resolve, join } from 'path';
-import handlebars from 'handlebars'
+import handlebars from 'handlebars';
 const hbs = handlebars.create();
 import gm from 'global-modules';
 import { path as _path } from '../index.mjs';

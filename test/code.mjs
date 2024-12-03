@@ -2,7 +2,7 @@
 
 import 'mocha';
 import { equal, throws } from 'assert';
-import handlebars from 'handlebars'
+import handlebars from 'handlebars';
 const hbs = handlebars.create();
 import { code } from '../index.mjs';
 code({handlebars: hbs});

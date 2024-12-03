@@ -5,7 +5,7 @@ import { equal, deepEqual } from 'assert';
 import { expected as _expected } from './support/index.mjs';
 var expected = _expected('object');
 import helpers, { math, object as _object } from '../index.mjs';
-import handlebars from 'handlebars'
+import handlebars from 'handlebars';
 const hbs = handlebars.create();
 math({handlebars: hbs});
 _object({handlebars: hbs});

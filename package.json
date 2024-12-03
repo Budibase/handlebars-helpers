@@ -69,7 +69,7 @@
     "node": ">=10.12.0"
   },
   "scripts": {
-    "lint": "eslint --ext js .",
+    "lint": "eslint --ext js,mjs .",
     "test": "mocha",
     "update:readmemd": "verb"
   },
