@@ -2,7 +2,7 @@
 
 import 'mocha';
 import { equal } from 'assert';
-import { chop, changecase } from '../lib/utils/index.js';
+import { chop, changecase } from '../lib/utils/index.mjs';
 import { condense, padcomments, parseAttributes, toAttributes } from '../lib/utils/html.js';
 
 describe('utils', function() {

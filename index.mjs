@@ -71,5 +71,5 @@ export const string = exportGroup(lib.string);
 export const url = exportGroup(lib.url);
 export const uuid = exportGroup(lib.uuid);
 
-import * as _utils from './lib/utils/index.js';
+import * as _utils from './lib/utils/index.mjs';
 export const utils = _utils;
