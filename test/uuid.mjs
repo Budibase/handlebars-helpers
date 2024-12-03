@@ -2,7 +2,7 @@
 
 import 'mocha';
 import { match } from 'assert';
-import { uuid } from '../lib/uuid.js';
+import { uuid } from '../lib/uuid.mjs';
 
 describe('uuid', function() {
   describe('generate', function() {

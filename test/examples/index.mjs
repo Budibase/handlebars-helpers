@@ -4,17 +4,17 @@
 import 'mocha';
 
 import { restore, stub } from 'sinon';
-import uuid from '../../lib/uuid.js';
+import {uuid} from '../../lib/uuid.mjs';
 import math from '../../lib/math.js';
-restore();
-stub(uuid, 'uuid').returns('f34ebc66-93bd-4f7c-b79b-92b5569138bc');
 
+restore();
+stub({uuid}, 'uuid').returns('f34ebc66-93bd-4f7c-b79b-92b5569138bc');
 stub(math, 'random').returns(10);
 
 import { equal } from 'assert';
 import lib from '../../lib/index.mjs';
 
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { parse } from 'doctrine';
 import { join } from 'path';
 
@@ -89,7 +89,12 @@ describe('examples', function() {
 
     const group = lib[key];
 
-    const fileContent = readFileSync(join('./lib/', `${key}.js`), 'utf8');
+    let file = join('./lib/', `${key}.js`);
+    if (!existsSync(file)) {
+      file = join('./lib/', `${key}.mjs`);
+
+    }
+    const fileContent = readFileSync(file, 'utf8');
 
     describe(key, function() {
       for (const func in group) {
