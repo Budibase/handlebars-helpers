@@ -12,7 +12,7 @@ stub(uuid, 'uuid').returns('f34ebc66-93bd-4f7c-b79b-92b5569138bc');
 stub(math, 'random').returns(10);
 
 import { equal } from 'assert';
-import lib from '../../lib/index.js';
+import lib from '../../lib/index.mjs';
 
 import { readFileSync } from 'fs';
 import { parse } from 'doctrine';

@@ -7,7 +7,7 @@
 
 'use strict';
 
-import lib from './lib/index.js';
+import lib from './lib/index.mjs';
 // TODO: import only when required
 import Handlebars from 'handlebars';
 
