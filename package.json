@@ -88,7 +88,6 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "engine-handlebars": "^0.8.2",
     "eslint": "^8.57.0",
     "fs-exists-sync": "^0.1.0",
     "global-modules": "^2.0.0",
@@ -98,10 +97,8 @@
     "js-yaml": "^4.1.0",
     "markdown-link": "^0.1.1",
     "mocha": "^8.4.0",
-    "rimraf": "^3.0.2",
     "sinon": "^17.0.1",
     "template-helpers": "^1.0.1",
-    "templates": "^1.2.9",
     "through2": "^4.0.2",
     "verb": "^0.8.10",
     "verb-cli": "^0.7.4",
