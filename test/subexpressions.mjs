@@ -1,11 +1,12 @@
 'use strict';
 
-require('mocha');
-var assert = require('assert');
-var hbs = require('handlebars').create();
-var helpers = require('..');
-helpers.array({handlebars: hbs});
-helpers.string({handlebars: hbs});
+import 'mocha';
+import { equal } from 'assert';
+import handlebars from 'handlebars'
+const hbs = handlebars.create();
+import { array, string } from '../index.mjs';
+array({handlebars: hbs});
+string({handlebars: hbs});
 
 var context = {
   one: ['A', 'B', 'C', 'D', 'E', 'F'],
@@ -17,11 +18,11 @@ describe('subexpressions', function() {
     describe('strings', function() {
       it('Should return the first item in a collection, all lowercase.', function() {
         var fn = hbs.compile('{{lowercase (first one)}}');
-        assert.equal(fn(context), 'a');
+        equal(fn(context), 'a');
       });
       it('Should return the last item in a collection, all uppercase.', function() {
         var fn = hbs.compile('{{uppercase (last two)}}');
-        assert.equal(fn(context), 'F');
+        equal(fn(context), 'F');
       });
     });
   });

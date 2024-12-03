@@ -1,15 +1,16 @@
 'use strict';
 
-require('mocha');
-var assert = require('assert');
-var hbs = require('handlebars').create();
-var helpers = require('..');
-helpers.code({handlebars: hbs});
+import 'mocha';
+import { equal, throws } from 'assert';
+import handlebars from 'handlebars'
+const hbs = handlebars.create();
+import { code } from '../index.mjs';
+code({handlebars: hbs});
 
 describe('code', function() {
   describe('embed', function() {
     it('should embed markdown:', function() {
-      assert.equal(hbs.compile('{{{embed "test/fixtures/simple.md"}}}')(), [
+      equal(hbs.compile('{{{embed "test/fixtures/simple.md"}}}')(), [
         '```markdown',
         '## Some Markdown\n',
         ' - one',
@@ -21,7 +22,7 @@ describe('code', function() {
     });
 
     it('should determine the language from the file extension', function() {
-      assert.equal(hbs.compile('{{{embed "test/fixtures/embedded.md"}}}')(), [
+      equal(hbs.compile('{{{embed "test/fixtures/embedded.md"}}}')(), [
         '```markdown',
         '## Markdown',
         '',
@@ -41,7 +42,7 @@ describe('code', function() {
 
     it('should use the language defined in the last argument', function() {
       var template = hbs.compile('{{{embed "test/fixtures/index.html" "hbs"}}}');
-      assert.equal(template(), [
+      equal(template(), [
         '```hbs',
         '<!DOCTYPE html>',
         '  <html lang="en">',
@@ -62,7 +63,7 @@ describe('code', function() {
   describe('gist', function() {
     it('should return a gist script tag', function() {
       var fn = hbs.compile('{{{gist "abcdefg"}}}');
-      assert.equal(fn(), '<script src="https://gist.github.com/abcdefg.js"></script>');
+      equal(fn(), '<script src="https://gist.github.com/abcdefg.js"></script>');
     });
   });
 
@@ -70,11 +71,11 @@ describe('code', function() {
     it('should return a jsfiddle embed link, with default tabs assigned', function() {
       var source = '{{{jsfiddle id="UXbas"}}}';
       var fn = hbs.compile(source);
-      assert.equal(fn(), '<iframe width="100%" height="300" src="http://jsfiddle.net/UXbas/embedded/result,js,html,css/presentation/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>');
+      equal(fn(), '<iframe width="100%" height="300" src="http://jsfiddle.net/UXbas/embedded/result,js,html,css/presentation/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>');
     });
 
     it('should throw an error if id is missing', function() {
-      assert.throws(function() {
+      throws(function() {
         hbs.compile('{{jsfiddle}}')();
       });
     });
@@ -82,7 +83,7 @@ describe('code', function() {
     it('should return a jsfiddle embed link, with custom tabs assigned', function() {
       var source = '{{{jsfiddle id="UXbas" tabs="html,css"}}}';
       var fn = hbs.compile(source);
-      assert.equal(fn(), '<iframe width="100%" height="300" src="http://jsfiddle.net/UXbas/embedded/html,css/presentation/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>');
+      equal(fn(), '<iframe width="100%" height="300" src="http://jsfiddle.net/UXbas/embedded/html,css/presentation/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>');
     });
   });
 });
