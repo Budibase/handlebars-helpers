@@ -9,7 +9,7 @@ import * as math from '../../lib/math.js';
 lib.uuid = () => 'f34ebc66-93bd-4f7c-b79b-92b5569138bc';
 lib.math = () => ({...math, random: () => 10});
 
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync } from 'fs';
 import { parse } from 'doctrine';
 import { join } from 'path';
 
