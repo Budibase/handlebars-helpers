@@ -3,7 +3,7 @@
 import 'mocha';
 import { equal } from 'assert';
 import { chop, changecase } from '../lib/utils/index.mjs';
-import { condense, padcomments, parseAttributes, toAttributes } from '../lib/utils/html.js';
+import { condense, padcomments, parseAttributes, toAttributes } from '../lib/utils/html.mjs';
 
 describe('utils', function() {
   describe('chop', function() {
