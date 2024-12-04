@@ -1,5 +1,5 @@
 {
-  "parserOptions": { "sourceType": "module", "ecmaVersion": 9 },
+  "parserOptions": { "sourceType": "module" },
   "env": {
     "browser": false,
     "es6": true,

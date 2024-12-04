@@ -28,12 +28,12 @@ export default function helpers(groups, options) {
 
   if (groups) {
     groups.forEach(function(key) {
-      hbs.registerHelper({...lib[key]});
+      hbs.registerHelper(Object.assign({}, lib[key]));
     });
   } else {
     for (const key in lib) {
       const group = lib[key];
-      hbs.registerHelper({...group});
+      hbs.registerHelper(Object.assign({}, group));
     }
   }
 
@@ -44,7 +44,7 @@ export default function helpers(groups, options) {
  * Expose helper groups
  */
 function exportGroup(group) {
-  group = {...group};
+  group = Object.assign({}, group);
   return function(options) {
     options = options || {};
     var hbs = options.handlebars || options.hbs || Handlebars;
