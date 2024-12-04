@@ -7,13 +7,15 @@
 
 'use strict';
 
-var lib = require('./lib/');
+import lib from './lib/index.js';
+// TODO: import only when required
+import Handlebars from 'handlebars';
 
 /**
  * Expose helpers
  */
 
-module.exports = function helpers(groups, options) {
+export default function helpers(groups, options) {
   if (typeof groups === 'string') {
     groups = [groups];
   } else if (!Array.isArray(groups)) {
@@ -22,17 +24,16 @@ module.exports = function helpers(groups, options) {
   }
 
   options = options || {};
-  var hbs = options.handlebars || options.hbs || require('handlebars');
-  module.exports.handlebars = hbs;
+  var hbs = options.handlebars || options.hbs || Handlebars;
 
   if (groups) {
     groups.forEach(function(key) {
-      hbs.registerHelper(lib[key]);
+      hbs.registerHelper(Object.assign({}, lib[key]));
     });
   } else {
     for (const key in lib) {
       const group = lib[key];
-      hbs.registerHelper(group);
+      hbs.registerHelper(Object.assign({}, group));
     }
   }
 
@@ -42,20 +43,33 @@ module.exports = function helpers(groups, options) {
 /**
  * Expose helper groups
  */
-for (const key in lib) {
-  const group = lib[key];
-
-  module.exports[key] = function(options) {
+function exportGroup(group) {
+  group = Object.assign({}, group);
+  return function(options) {
     options = options || {};
-    var hbs = options.handlebars || options.hbs || require('handlebars');
-    module.exports.handlebars = hbs;
+    var hbs = options.handlebars || options.hbs || Handlebars;
     hbs.registerHelper(group);
     return group;
-  };
-}
+  }; 
+};
 
-/**
- * Expose `utils`
- */
+export const array = exportGroup(lib.array);
+export const code = exportGroup(lib.code);
+export const collection = exportGroup(lib.collection);
+export const comparison = exportGroup(lib.comparison);
+export const html = exportGroup(lib.html);
+export const i18n = exportGroup(lib.i18n);
+export const inflection = exportGroup(lib.inflection);
+export const match = exportGroup(lib.match);
+export const math = exportGroup(lib.math);
+export const misc = exportGroup(lib.misc);
+export const number = exportGroup(lib.number);
+export const object = exportGroup(lib.object);
+export const path = exportGroup(lib.path);
+export const regex = exportGroup(lib.regex);
+export const string = exportGroup(lib.string);
+export const url = exportGroup(lib.url);
+export const uuid = exportGroup(lib.uuid);
 
-module.exports.utils = require('./lib/utils');
+import * as _utils from './lib/utils/index.js';
+export const utils = _utils;

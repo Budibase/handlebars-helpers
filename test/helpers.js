@@ -1,9 +1,9 @@
 'use strict';
 
-require('mocha');
-var assert = require('assert');
-var hbs = require('handlebars');
-var helpers = require('..');
+import 'mocha';
+import assert from 'assert';
+import hbs from 'handlebars';
+import helpers, { math } from '../index.js';
 
 describe('helpers', function() {
   it('should should return all helpers:', function() {
@@ -43,19 +43,19 @@ describe('helpers', function() {
 
   it('should support passing an instance of handlebars:', function() {
     helpers({handlebars: hbs});
-    hbs.registerHelper('foo', function() {});
+    hbs. registerHelper('foo', function() {});
     assert(hbs.helpers.hasOwnProperty('foo'));
   });
 
   it('should return a single collection:', function() {
-    var res = helpers.math();
+    var res = math();
     assert(res.hasOwnProperty('add'));
     assert(res.hasOwnProperty('subtract'));
     assert(res.hasOwnProperty('divide'));
   });
 
   it('should register collection helpers with handlebars:', function() {
-    helpers.math();
+    math();
     assert(hbs.helpers.hasOwnProperty('add'));
     assert(hbs.helpers.hasOwnProperty('subtract'));
     assert(hbs.helpers.hasOwnProperty('divide'));
