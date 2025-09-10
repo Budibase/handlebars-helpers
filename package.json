@@ -64,7 +64,13 @@
     "index.js",
     "lib"
   ],
+  "type": "module",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./lib": "./lib/index.js",
+    "./lib/*": "./lib/*.js"
+  },
   "engines": {
     "node": ">=10.12.0"
   },
