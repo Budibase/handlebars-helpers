@@ -3,12 +3,11 @@
 import { equal } from 'assert';
 import 'mocha';
 import helpers from '../index.js';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-var os = require('os');
-var path = require('path');
-var hbs = require('handlebars').create();
-var gm = require('global-modules');
+import os from 'os';
+import path from 'path';
+import handlebars from 'handlebars';
+import gm from 'global-modules';
+var hbs = handlebars.create();
 helpers.path({handlebars: hbs});
 
 describe('assemble', function() {

@@ -3,9 +3,8 @@
 import { ok } from 'assert';
 import 'mocha';
 import helpers from '../index.js';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-var hbs = require('handlebars');
+import handlebars from 'handlebars';
+var hbs = handlebars;
 
 describe('helpers', function() {
   it('should should return all helpers:', function() {

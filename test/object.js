@@ -4,11 +4,10 @@ import { equal } from 'assert';
 import assert from 'assert';
 import 'mocha';
 import helpers from '../index.js';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import handlebars from 'handlebars';
 import support from './support/index.js';
 var expected = support.expected('object');
-var hbs = require('handlebars').create();
+var hbs = handlebars.create();
 helpers.math({handlebars: hbs});
 helpers.object({handlebars: hbs});
 

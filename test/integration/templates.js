@@ -3,9 +3,7 @@ import path from 'path';
 import assert from 'assert';
 import gm from 'global-modules';
 import engine from 'engine-handlebars';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const templates = require('templates');
+import templates from 'templates';
 import helpers from '../../index.js';
 
 let compile;

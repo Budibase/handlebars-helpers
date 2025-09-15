@@ -1,7 +1,5 @@
 
 import 'mocha';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 
 import sinon from 'sinon';
 import assert from 'assert';

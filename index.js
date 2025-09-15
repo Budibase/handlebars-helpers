@@ -7,8 +7,6 @@
 
 import lib from './lib/index.js';
 import * as utils from './lib/utils/index.js';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 
 /**
  * Expose helpers
@@ -24,11 +22,7 @@ function helpers(groups, options) {
 
   options = options || {};
   var hbs = options.handlebars || options.hbs || (function() {
-    try {
-      return require('handlebars');
-    } catch (e) {
-      throw new Error('handlebars is required. Please install it or pass it as an option.');
-    }
+    throw new Error('handlebars is required. Please pass it as an option: helpers(groups, { handlebars: require("handlebars") })');
   })();
   helpers.handlebars = hbs;
 
@@ -55,11 +49,7 @@ for (const key in lib) {
   helpers[key] = function(options) {
     options = options || {};
     var hbs = options.handlebars || options.hbs || (function() {
-      try {
-        return require('handlebars');
-      } catch (e) {
-        throw new Error('handlebars is required. Please install it or pass it as an option.');
-      }
+      throw new Error('handlebars is required. Please pass it as an option: helpers.' + key + '({ handlebars: require("handlebars") })');
     })();
     helpers.handlebars = hbs;
     hbs.registerHelper(group);

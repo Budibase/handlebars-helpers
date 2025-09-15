@@ -3,9 +3,8 @@
 import { equal, throws } from 'assert';
 import 'mocha';
 import helpers from '../index.js';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-var hbs = require('handlebars').create();
+import handlebars from 'handlebars';
+var hbs = handlebars.create();
 helpers.comparison({handlebars: hbs});
 
 describe('comparison', function() {
