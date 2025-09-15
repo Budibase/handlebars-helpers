@@ -1,12 +1,10 @@
-'use strict';
-
-var fs = require('fs');
+import fs from 'fs';
 
 /**
  * Expose `utils`
  */
 
-var utils = module.exports;
+const utils = {};
 
 /**
  * Read a file at the given `filepath`
@@ -48,3 +46,5 @@ utils.expected = function(type) {
     return utils.read('test/expected/' + type + '/' + fp);
   };
 };
+
+export default utils;

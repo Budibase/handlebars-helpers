@@ -5,15 +5,16 @@
  * Released under the MIT License.
  */
 
-'use strict';
-
-var lib = require('./lib/');
+import lib from './lib/index.js';
+import * as utils from './lib/utils/index.js';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 /**
  * Expose helpers
  */
 
-module.exports = function helpers(groups, options) {
+function helpers(groups, options) {
   if (typeof groups === 'string') {
     groups = [groups];
   } else if (!Array.isArray(groups)) {
@@ -22,8 +23,14 @@ module.exports = function helpers(groups, options) {
   }
 
   options = options || {};
-  var hbs = options.handlebars || options.hbs || require('handlebars');
-  module.exports.handlebars = hbs;
+  var hbs = options.handlebars || options.hbs || (function() {
+    try {
+      return require('handlebars');
+    } catch (e) {
+      throw new Error('handlebars is required. Please install it or pass it as an option.');
+    }
+  })();
+  helpers.handlebars = hbs;
 
   if (groups) {
     groups.forEach(function(key) {
@@ -37,7 +44,7 @@ module.exports = function helpers(groups, options) {
   }
 
   return hbs.helpers;
-};
+}
 
 /**
  * Expose helper groups
@@ -45,10 +52,16 @@ module.exports = function helpers(groups, options) {
 for (const key in lib) {
   const group = lib[key];
 
-  module.exports[key] = function(options) {
+  helpers[key] = function(options) {
     options = options || {};
-    var hbs = options.handlebars || options.hbs || require('handlebars');
-    module.exports.handlebars = hbs;
+    var hbs = options.handlebars || options.hbs || (function() {
+      try {
+        return require('handlebars');
+      } catch (e) {
+        throw new Error('handlebars is required. Please install it or pass it as an option.');
+      }
+    })();
+    helpers.handlebars = hbs;
     hbs.registerHelper(group);
     return group;
   };
@@ -57,5 +70,6 @@ for (const key in lib) {
 /**
  * Expose `utils`
  */
+helpers.utils = utils;
 
-module.exports.utils = require('./lib/utils');
+export default helpers;

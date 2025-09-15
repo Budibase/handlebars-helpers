@@ -1,22 +1,23 @@
 
-'use strict';
+import 'mocha';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-require('mocha');
+import sinon from 'sinon';
+import assert from 'assert';
+import lib from '../../lib/index.js';
+import fs from 'fs';
+import doctrine from 'doctrine';
+import path from 'path';
+import handlebars from 'handlebars';
+import helpers from '../../index.js';
+import uuidModule from '../../lib/uuid.js';
+import mathModule from '../../lib/math.js';
 
-const sinon = require('sinon');
-sinon.stub(require('../../lib/uuid'), 'uuid').returns('f34ebc66-93bd-4f7c-b79b-92b5569138bc');
+sinon.stub(uuidModule, 'uuid').returns('f34ebc66-93bd-4f7c-b79b-92b5569138bc');
+sinon.stub(mathModule, 'random').returns(10);
 
-sinon.stub(require('../../lib/math'), 'random').returns(10);
-
-var assert = require('assert');
-var lib = require('../../lib/');
-
-const fs = require('fs');
-const doctrine = require('doctrine');
-const path = require('path');
-
-var handlebars = require('handlebars').create();
-var helpers = require('../..');
+const hbs = handlebars.create();
 
 function lookForward(lines, funcLines, idx) {
   const funcLen = funcLines.length;
@@ -81,7 +82,7 @@ function escapeRegExp(string) {
 
 describe('examples', function() {
   for (const key in lib) {
-    helpers[key]({ handlebars });
+    helpers[key]({ handlebars: hbs });
 
     const group = lib[key];
 
@@ -110,7 +111,7 @@ describe('examples', function() {
             return;
           }
 
-          let result = handlebars.compile(hbs)(context);
+          let result = hbs.compile(hbs)(context);
           // Trim 's
           expectedResult = expectedResult.replace(/^\'|\'$/g, '');
           try {

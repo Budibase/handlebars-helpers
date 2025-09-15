@@ -1,15 +1,14 @@
-'use strict';
+import os from 'os';
+import path from 'path';
+import assert from 'assert';
+import gm from 'global-modules';
+import engine from 'engine-handlebars';
+import templates from 'templates';
+import helpers from '../../index.js';
 
-var os = require('os');
-var path = require('path');
-var assert = require('assert');
-var gm = require('global-modules');
-var engine = require('engine-handlebars');
-var templates = require('templates');
-var helpers = require('../..');
-var compile;
-var render;
-var app;
+let compile;
+let render;
+let app;
 
 describe('templates integration tests', function() {
   beforeEach(function() {
