@@ -2,13 +2,10 @@ import { equal } from 'assert';
 import assert from 'assert';
 import 'mocha';
 import helpers from '../index.js';
-import { createRequire } from 'module';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import path from 'path';
 import handlebars from 'handlebars';
-
-const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const hbs = handlebars.create();
