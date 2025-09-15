@@ -3,7 +3,7 @@
 import { equal } from 'assert';
 import 'mocha';
 import * as utils from '../lib/utils/index.js';
-import * as HTML from '../lib/utils/html.js';
+import HTML from '../lib/utils/html.js';
 
 describe('utils', function() {
   describe('chop', function() {

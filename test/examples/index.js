@@ -93,16 +93,16 @@ describe('examples', function() {
         const { example } = getCommentInfo(fileContent, lib[key][func].toString());
 
         example && it(func, function() {
-          let [hbs, expectedResult] = example.split('->').map(x => x.trim());
+          let [template, expectedResult] = example.split('->').map(x => x.trim());
 
           const context = {
             double: i => i * 2,
             isString: (x) => typeof(x) === 'string'
           };
 
-          const arrays = hbs.match(/\[[^/\]]+\]/);
+          const arrays = template.match(/\[[^/\]]+\]/);
           arrays && arrays.forEach((arrayString, i) => {
-            hbs = hbs.replace(new RegExp(escapeRegExp(arrayString)), `array${i}`);
+            template = template.replace(new RegExp(escapeRegExp(arrayString)), `array${i}`);
             context[`array${i}`] = JSON.parse(arrayString.replace(/\'/g, '"'));
           });
 
@@ -111,7 +111,7 @@ describe('examples', function() {
             return;
           }
 
-          let result = hbs.compile(hbs)(context);
+          let result = hbs.compile(template)(context);
           // Trim 's
           expectedResult = expectedResult.replace(/^\'|\'$/g, '');
           try {
