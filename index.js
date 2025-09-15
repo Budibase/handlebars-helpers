@@ -21,23 +21,33 @@ function helpers(groups, options) {
   }
 
   options = options || {};
-  var hbs = options.handlebars || options.hbs || (function() {
-    throw new Error('handlebars is required. Please pass it as an option: helpers(groups, { handlebars: require("handlebars") })');
-  })();
-  helpers.handlebars = hbs;
+  var hbs = options.handlebars || options.hbs;
 
-  if (groups) {
-    groups.forEach(function(key) {
-      hbs.registerHelper(lib[key]);
-    });
-  } else {
-    for (const key in lib) {
-      const group = lib[key];
-      hbs.registerHelper(group);
+  if (hbs) {
+    helpers.handlebars = hbs;
+
+    if (groups) {
+      groups.forEach(function(key) {
+        hbs.registerHelper(lib[key]);
+      });
+    } else {
+      for (const key in lib) {
+        const group = lib[key];
+        hbs.registerHelper(group);
+      }
     }
   }
 
-  return hbs.helpers;
+  if (hbs && hbs.helpers) {
+    return hbs.helpers;
+  }
+
+  // Return raw helper functions when no handlebars is provided
+  const allHelpers = {};
+  for (const key in lib) {
+    Object.assign(allHelpers, lib[key]);
+  }
+  return allHelpers;
 }
 
 /**
@@ -48,11 +58,12 @@ for (const key in lib) {
 
   helpers[key] = function(options) {
     options = options || {};
-    var hbs = options.handlebars || options.hbs || (function() {
-      throw new Error('handlebars is required. Please pass it as an option: helpers.' + key + '({ handlebars: require("handlebars") })');
-    })();
-    helpers.handlebars = hbs;
-    hbs.registerHelper(group);
+    var hbs = options.handlebars || options.hbs;
+
+    if (hbs) {
+      helpers.handlebars = hbs;
+      hbs.registerHelper(group);
+    }
     return group;
   };
 }

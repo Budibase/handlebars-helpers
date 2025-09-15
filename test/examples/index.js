@@ -84,7 +84,7 @@ describe('examples', function() {
 
     const group = lib[key];
 
-    const fileContent = fs.readFileSync(require.resolve(path.join('../../lib/', key)), 'utf8');
+    const fileContent = fs.readFileSync(path.join(process.cwd(), 'lib', key + '.js'), 'utf8');
 
     describe(key, function() {
       for (const func in group) {
