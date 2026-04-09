@@ -55,7 +55,7 @@
     "(https://github.com/homersimpsons)",
     "Michael Drury (https://github.com/mike12345567)"
   ],
-  "repository": "helpers/handlebars-helpers",
+  "repository": "Budibase/handlebars-helpers",
   "bugs": {
     "url": "https://github.com/Budibase/handlebars-helpers/issues"
   },
