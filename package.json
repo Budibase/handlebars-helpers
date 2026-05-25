@@ -86,7 +86,7 @@
     "striptags": "^3.1.1",
     "to-gfm-code-block": "^0.1.1",
     "typeof-article": "^0.1.1",
-    "uuid": "^9.0.1"
+    "uuid": "^11.1.1"
   },
   "devDependencies": {
     "engine-handlebars": "^0.8.2",
