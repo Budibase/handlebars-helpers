@@ -2,7 +2,7 @@
   "name": "@budibase/handlebars-helpers",
   "type": "module",
   "description": "More than 130 Handlebars helpers in ~20 categories. Helpers can be used with Assemble, Generate, Verb, Ghost, gulp-handlebars, grunt-handlebars, consolidate, or any node.js/Handlebars project.",
-  "version": "0.14.0",
+  "version": "0.14.3",
   "homepage": "https://github.com/Budibase/handlebars-helpers",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "contributors": [
@@ -93,7 +93,8 @@
     "relative": "^3.0.2",
     "striptags": "^3.1.1",
     "to-gfm-code-block": "^0.1.1",
-    "uuid": "^9.0.1"
+    "typeof-article": "^0.1.1",
+    "uuid": "^11.1.1"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
