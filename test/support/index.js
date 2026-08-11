@@ -1,12 +1,6 @@
 'use strict';
 
-var fs = require('fs');
-
-/**
- * Expose `utils`
- */
-
-var utils = module.exports;
+import { readFileSync } from 'fs';
 
 /**
  * Read a file at the given `filepath`
@@ -15,9 +9,9 @@ var utils = module.exports;
  * @return {String}
  */
 
-utils.read = function(fp) {
-  return fs.readFileSync(fp, 'utf8');
-};
+export function read(fp) {
+  return readFileSync(fp, 'utf8');
+}
 
 /**
  * Returns a function for reading a test fixture 
@@ -28,11 +22,11 @@ utils.read = function(fp) {
  * @return {String}
  */
 
-utils.fixture = function(type) {
+export function fixture(type) {
   return function(fp) {
-    return utils.read('test/fixtures/' + type + '/' + fp);
+    return read('test/fixtures/' + type + '/' + fp);
   };
-};
+}
 
 /**
  * Returns a function for reading a file
@@ -43,8 +37,8 @@ utils.fixture = function(type) {
  * @return {String}
  */
 
-utils.expected = function(type) {
+export function expected(type) {
   return function(fp) {
-    return utils.read('test/expected/' + type + '/' + fp);
+    return read('test/expected/' + type + '/' + fp);
   };
-};
+}
