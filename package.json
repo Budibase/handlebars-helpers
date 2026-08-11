@@ -65,9 +65,16 @@
     "index.js",
     "lib"
   ],
-  "main": "index.js",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*.js",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
   "engines": {
-    "node": ">=10.12.0"
+    "node": ">=14.13.1"
   },
   "scripts": {
     "lint": "eslint --ext js .",
